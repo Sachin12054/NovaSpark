@@ -1,0 +1,56 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Students Collection: Users can read public profile data and write their own student doc
+    match /students/{studentId} {
+      allow read: if true;
+      allow create: if true; // Allows mobile registration (or via backend service account)
+      allow update, delete: if isOwner(studentId);
+    }
+
+    // Registrations Collection: Workshop seat reservations
+    match /registrations/{registrationId} {
+      allow read: if true;
+      allow create: if true;
+      allow update, delete: if false; // Immutable once registered
+    }
+
+    // Referrals Collection: Validated peer referral attribution
+    match /referrals/{referralId} {
+      allow read: if true;
+      allow create: if true;
+      allow update, delete: if false; // Server-validated immutability
+    }
+
+    // Campaign Events: Telemetry events logging
+    match /campaign_events/{eventId} {
+      allow read: if true;
+      allow create: if true; // Mobile clients can log interaction events
+      allow update, delete: if false;
+    }
+
+    // Growth Metrics & Admin stats: Publicly readable for simulation demo, writes restricted
+    match /growth_metrics/{metricId} {
+      allow read: if true;
+      allow write: if false; // Managed by backend cron/server
+    }
+    
+    match /chat_sessions/{sessionId} {
+      allow read, write: if true;
+    }
+
+    match /project_recommendations/{recId} {
+      allow read, write: if true;
+    }
+  }
+}

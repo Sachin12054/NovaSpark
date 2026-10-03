@@ -1,0 +1,28 @@
+{
+  "expo": {
+    "name": "NovaSpark",
+    "slug": "novaspark",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "novaspark",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "backgroundColor": "#080b11"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.nxtwave.novaspark"
+    },
+    "android": {
+      "package": "com.nxtwave.novaspark"
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-sharing",
+      "expo-status-bar"
+    ]
+  }
+}

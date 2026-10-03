@@ -1,0 +1,31 @@
+# Environment variables (CRITICAL: Never commit .env files)
+.env
+*.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+*.db
+challenge.db
+
+# Node / React Native / Expo
+node_modules/
+.expo/
+dist/
+npm-debug.*
+*.log
+*.lock
+
+# OS
+.DS_Store
+Thumbs.db
